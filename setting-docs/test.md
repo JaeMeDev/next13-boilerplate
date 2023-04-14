@@ -28,8 +28,8 @@ const customJestConfig = {
     ],
     moduleNameMapper: {
         '@/(.*)': '<rootDir>/src/$1',
-        '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/src/__mocks__/file.js',
-        '^.+\\.(svg)$': '<rootDir>/src/__mocks__/svg.js',
+        '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/file.js',
+        '^.+\\.(svg)$': '<rootDir>/__mocks__/svg.js',
     },
     testPathIgnorePatterns: [
         'node_modules',
@@ -77,17 +77,17 @@ declare const given: {
 - add file, svg default mock
 
 ```shell
-touch ./src/__mocks__/file.js
-touch ./src/__mocks__/svg.js
+touch __mocks__/file.js
+touch __mocks__/svg.js
 ```
 
 ```javascript
-// ./src/__mocks__/file.js
+// ./__mocks__/file.js
 module.exports = 'test-file-stub';
 ```
 
 ```javascript
-// ./src/__mocks__/svg.js
+// ./__mocks__/svg.js
 export default 'svg';
 
 export const ReactComponent = 'div';

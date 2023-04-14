@@ -10,10 +10,10 @@
 
 - ## [✅ STEP5. Styled Components Setting](./setting-docs/styled-components.md)
 
-- ## [✅ STEP5. Styled Components Setting](./setting-docs/styled-components.md)
-
 - ## [✅ STEP6. Next.js SVG Setting](./setting-docs/next-svg.md)
 
 - ## [✅ STEP7. Next.js PWA Setting](./setting-docs/next-pwa.md)
 
 - ## [✅ STEP8. ESLint Setting](./setting-docs/eslint.md)
+
+- ## [✅ STEP9. Husky Setting](./setting-docs/husky.md)
