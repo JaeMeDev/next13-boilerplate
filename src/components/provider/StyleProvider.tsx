@@ -1,16 +1,17 @@
-import { PropsWithChildren } from "react";
-import { ThemeProvider } from "styled-components";
-import { Reset } from "styled-reset";
+import { PropsWithChildren } from 'react';
 
-import defaultTheme from "@/styles/defaultTheme";
-import GlobalStyle from "@/styles/GlobalStyle";
+import { ThemeProvider } from 'styled-components';
+import { Reset } from 'styled-reset';
 
-export default function StyleProvider({ children } : PropsWithChildren){
-    return (
-        <ThemeProvider theme={defaultTheme}>
-            <Reset />
-            <GlobalStyle />
-            {children}
-        </ThemeProvider>
-    )
+import defaultTheme from '@/styles/defaultTheme';
+import GlobalStyle from '@/styles/GlobalStyle';
+
+export default function StyleProvider({ children } : PropsWithChildren) {
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Reset />
+      <GlobalStyle />
+      {children}
+    </ThemeProvider>
+  );
 }

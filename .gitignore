@@ -49,3 +49,6 @@ next-env.d.ts
 # pwa
 public/*.js
 public/*.map
+
+# eslint cache
+.eslintcache

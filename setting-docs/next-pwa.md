@@ -149,7 +149,7 @@ export default function RootLayout({
 
 - gitignore 설정
 
-```text
+```gitignore
 # pwa
 public/*.js
 public/*.map

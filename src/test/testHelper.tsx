@@ -1,12 +1,15 @@
-import {ReactNode} from "react";
-import {render} from "@testing-library/react";
+import { ReactNode } from 'react';
 
-import MockTheme from "./MockTheme";
+import { render } from '@testing-library/react';
 
-export function renderWithProviders(node: ReactNode){
-    return render(
-        <MockTheme>
-            {node}
-        </MockTheme>
-    )
+import MockTheme from './MockTheme';
+
+function renderWithProviders(node: ReactNode) {
+  return render(
+    <MockTheme>
+      {node}
+    </MockTheme>,
+  );
 }
+
+export default renderWithProviders;

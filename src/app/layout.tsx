@@ -1,6 +1,8 @@
-import { ReactNode } from "react";
-import { Metadata } from "next";
-import Provider from "@/components/provider";
+import { ReactNode } from 'react';
+
+import { Metadata } from 'next';
+
+import Provider from '@/components/provider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3000'),
@@ -30,9 +32,9 @@ export const metadata: Metadata = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
-    userScalable: false
+    userScalable: false,
   },
-}
+};
 
 export default function RootLayout({
   children,
@@ -47,5 +49,5 @@ export default function RootLayout({
         </Provider>
       </body>
     </html>
-  )
+  );
 }
