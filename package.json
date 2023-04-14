@@ -36,5 +36,10 @@
     "jest-styled-components": "^7.1.1",
     "typescript": "5.0.4"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.5.0",
+  "dependenciesMeta": {
+    "next@13.3.0": {
+      "unplugged": true
+    }
+  }
 }

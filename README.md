@@ -49,6 +49,12 @@ yarn
 !.yarn/versions
 ```
 
+### 🎯 2.3 next.js build 안되는 문제 해결
+
+```shell
+yarn unplug next
+```
+
 ### ✅ 3. Typescript Config Setting
 
 ```json
