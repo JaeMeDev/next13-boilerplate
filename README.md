@@ -35,7 +35,7 @@ yarn plugin import typescript
 yarn
 ```
 
-### 🎯 2.2. zero install 적용
+### 🎯 2.2 zero install 적용
 
 ```text
 # /.gitignore
@@ -159,7 +159,7 @@ import 'given2/setup';
 - `given2` setting
 
 ```shell
-touch src/@types/jest.d.ts
+touch @types/jest.d.ts
 ```
 
 ```typescript
@@ -177,12 +177,12 @@ touch ./src/__mocks__/svg.js
 ```
 
 ```javascript
-// /src/__mocks__/file.js
+// ./src/__mocks__/file.js
 module.exports = 'test-file-stub';
 ```
 
 ```javascript
-// /src/__mocks__/svg.js
+// ./src/__mocks__/svg.js
 export default 'svg';
 
 export const ReactComponent = 'div';
@@ -198,5 +198,254 @@ export const ReactComponent = 'div';
     "test:coverage": "yarn test:unit --coverage",
     "test:watchAll:coverage": "jest --watchAll --coverage"
   }
+}
+```
+
+## ✅ 5. Styled Components Setting
+
+### 🎯 5.1 Install Styled Components
+
+- install (beta 버전 설치 이유는 6버전부터 `next.js 13` 지원)
+
+```shell
+yarn add styled-components@beta styled-reset
+```
+
+- `next.config.js` setting
+
+```javascript
+const isProd = process.env.NODE_ENV === 'production';
+
+const nextConfig = {
+  reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  swcMinify: true,
+  compiler: {
+    reactRemoveProperties: isProd && {
+      properties: ['^data-test'],
+    },
+    removeConsole: isProd && {
+      exclude: ['error'],
+    },
+    styledComponents: true,
+  },
+  experimental: {
+    appDir: true,
+    typedRoutes: true,
+  },
+};
+```
+
+### 🎯 5.2 Styled Components Next.js Setting
+
+- add GlobalStyle
+
+```typescript
+// ./src/styles/GlobalStyle.tsx
+import {createGlobalStyle} from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`;
+
+export default GlobalStyle;
+```
+
+- add defaultTheme
+
+```typescript
+// ./src/styles/defaultTheme.ts
+const defaultTheme = {
+    white: '#FFFFFF',
+    black: '#000000',
+};
+
+export default defaultTheme;
+```
+
+- `styled-components.d.ts` setting
+
+```tsx
+// ./@types/styled-components.d.ts
+import type { CSSProp } from 'styled-components';
+
+import defaultTheme from '@/styles/defaultTheme';
+
+type ThemeType = typeof defaultTheme;
+
+declare module 'styled-components' {
+    export interface DefaultTheme extends ThemeType {
+
+    }
+}
+
+declare module 'react' {
+    interface DOMAttributes<T> {
+        css?: CSSProp<T>;
+    }
+}
+```
+
+- add StyledComponents Registry
+
+```tsx
+// ./src/components/provider/StyledComponentsRegistry.tsx
+'use client';
+
+import { ReactElement, ReactNode, useState } from 'react';
+
+import { useServerInsertedHTML } from 'next/navigation';
+
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+
+function StyledComponentsRegistry({ children }: { children: ReactNode }): ReactElement {
+    const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+
+    useServerInsertedHTML(() => {
+        const styles = styledComponentsStyleSheet.getStyleElement();
+        styledComponentsStyleSheet.instance.clearTag();
+
+        return <>{styles}</>;
+    });
+
+    if (typeof window !== 'undefined') {
+        return <>{children}</>;
+    }
+
+    return (
+        <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+            {children}
+        </StyleSheetManager>
+    );
+}
+
+export default StyledComponentsRegistry;
+```
+
+- add Style Provider
+
+```tsx
+// ./src/components/provider/StyleProvider.tsx
+import { PropsWithChildren } from "react";
+import { ThemeProvider } from "styled-components";
+import { Reset } from "styled-reset";
+
+import defaultTheme from "@/styles/defaultTheme";
+import GlobalStyle from "@/styles/GlobalStyle";
+
+export default function StyleProvider({ children } : PropsWithChildren){
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            <Reset />
+            <GlobalStyle />
+            {children}
+        </ThemeProvider>
+    )
+}
+```
+
+- add root Provider
+
+```tsx
+// ./src/components/provider/index.tsx
+'use client';
+
+import { PropsWithChildren } from "react";
+
+import StyledComponentsRegistry from "./StyledComponentsRegistry";
+import StyleProvider from "./StyleProvider";
+
+export default function Provider({ children } : PropsWithChildren){
+    return(
+        <StyledComponentsRegistry>
+            <StyleProvider>
+                {children}
+            </StyleProvider>
+        </StyledComponentsRegistry>
+    )
+}
+```
+
+- next.js root layout setting(provider)
+
+```tsx
+// ./src/app/layout.tsx
+import { ReactNode } from "react";
+import Provider from "@/components/provider";
+
+export const metadata = {
+  title: 'Create Next App',
+  description: 'Generated by create next app',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <Provider>
+          {children}
+        </Provider>
+      </body>
+    </html>
+  )
+}
+```
+
+### 🎯 5.3 Styled Components Test Setting
+
+- add Mock Theme
+
+```tsx
+// ./src/test/MockTheme.tsx
+import { ThemeProvider } from "styled-components";
+import { PropsWithChildren } from "react";
+
+import defaultTheme from "@/styles/defaultTheme";
+
+export default function MockTheme({ children } : PropsWithChildren){
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            {children}
+        </ThemeProvider>
+    )
+}
+```
+
+- add test render function
+
+```tsx
+// ./src/test/testHelper.tsx
+import {ReactNode} from "react";
+import {render} from "@testing-library/react";
+
+import MockTheme from "./MockTheme";
+
+export function renderWithProviders(node: ReactNode){
+    return render(
+        <MockTheme>
+            {node}
+        </MockTheme>
+    )
 }
 ```
