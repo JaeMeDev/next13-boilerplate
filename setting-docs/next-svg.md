@@ -1,3 +1,14 @@
+# ✅ 6. Next.js SVG Setting
+
+- `svg`파일을 import 하기 위해서는 설정이 필요하다.
+
+```shell
+yarn add @svgr/webpack
+```
+
+- `next.config.js` setting
+
+```javascript
 const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
@@ -31,3 +42,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig
+```

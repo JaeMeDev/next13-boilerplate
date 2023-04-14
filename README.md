@@ -9,3 +9,7 @@
 - ## [✅ STEP4. Jest + Testing-Library Setting](./setting-docs/test.md)
 
 - ## [✅ STEP5. Styled Components Setting](./setting-docs/styled-components.md)
+
+- ## [✅ STEP5. Styled Components Setting](./setting-docs/styled-components.md)
+
+- ## [✅ STEP6. Next.js SVG Setting](./setting-docs/next-svg.md)
