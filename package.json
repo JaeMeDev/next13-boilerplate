@@ -21,6 +21,7 @@
     "styled-reset": "^4.4.6"
   },
   "devDependencies": {
+    "@ducanh2912/next-pwa": "^8.2.0",
     "@svgr/webpack": "^7.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
