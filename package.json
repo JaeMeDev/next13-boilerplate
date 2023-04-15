@@ -12,6 +12,10 @@
     "test:watchAll": "jest --watchAll",
     "test:coverage": "yarn test:unit --coverage",
     "test:watchAll:coverage": "jest --watchAll --coverage",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:pnp": "node ./scripts/cypress-pnp.cjs",
+    "test:e2e": "start-server-and-test dev http://localhost:3000 cypress:run",
     "postinstall": "husky install && chmod ug+x .husky/*"
   },
   "dependencies": {
@@ -38,6 +42,7 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "cypress": "^12.7.0",
     "eslint": "8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -59,6 +64,7 @@
     "jest-plugin-context": "^2.9.0",
     "jest-styled-components": "^7.1.1",
     "lint-staged": "^13.2.1",
+    "start-server-and-test": "^2.0.0",
     "typescript": "5.0.4"
   },
   "packageManager": "yarn@3.5.0",

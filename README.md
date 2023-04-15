@@ -17,3 +17,5 @@
 - ## [✅ STEP8. ESLint Setting](./setting-docs/eslint.md)
 
 - ## [✅ STEP9. Husky Setting](./setting-docs/husky.md)
+
+- ## [✅ STEP10. Cypress Setting](./setting-docs/cypress.md)
